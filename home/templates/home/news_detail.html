@@ -1,0 +1,19 @@
+{% extends 'home/home_list.html' %}
+
+
+    {% block news_datail %}
+        <div class="container">
+        <div class="news">
+        {% if news_det.news_published_date %}
+            <h1>{{ news_det.news_title }}</h1>
+            <div class="date">
+                    {{ news_det.news_published_date }}
+                </div>
+            <img src="http://placehold.it/600x340" alt="" class="img-responsive">
+            <p>{{ news_det.news_text }}</p>
+            <hr>
+        </div>
+        {% endif %}
+
+        </div>
+    {% endblock %}
