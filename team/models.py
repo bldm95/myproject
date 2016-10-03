@@ -18,6 +18,7 @@ class Team(models.Model):
     team_text = models.TextField()
     team_coach = models.ForeignKey(Coach, null=True, blank=True, on_delete=models.CASCADE)
     team_emblem = models.OneToOneField('Photo', null=True, blank=True, on_delete=models.CASCADE)
+    team_emblem = models.OneToOneField(Photo, null=True, blank=True, on_delete=models.CASCADE)
 
 
 class Photo(models.Model):
@@ -45,4 +46,3 @@ def publish(self):
 def __str__(self):
     return self.team_name
 
-# Create your models here.
