@@ -1,7 +1,7 @@
 {% extends 'home/base.html' %}
 
 
-    {% block news_datail %}
+    {% block post_datail %}
         <div class="container">
             <div class="news">
                 {% if news_det.news_published_date %}
@@ -9,7 +9,7 @@
                     <div class="date">
                     {{ news_det.news_published_date }}
                     </div>
-                <img src="{{ news_det.news_image.url }}" alt="" class="img-responsive">
+                <img src="{{ news_det.news_image.photo_image.url }}" alt="" class="img-responsive">
                 <p>{{ news_det.news_text }}</p>
                 <hr>
             </div>

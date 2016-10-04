@@ -54,7 +54,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="{%  url 'news_list' %}">Главная</a></li>
-            <li><a href="#">Команды</a></li>
+            <li><a href="{% url 'teams_list' %}">Команды</a></li>
             <li><a href="#">Турниры</a></li>
           </ul>
           </ul>
@@ -64,7 +64,7 @@
 
 <br>
 
-    {% block news_datail %}
+    {% block post_datail %}
     {% endblock %}
 
     <div class="container">

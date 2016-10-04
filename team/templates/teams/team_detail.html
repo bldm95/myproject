@@ -1,0 +1,21 @@
+{% extends 'home/base.html' %}
+
+
+    {% block post_datail %}
+        <div class="container">
+            <div class="team">
+                <h1>{{ team_det.team_name }}</h1>
+                    <div class="date">
+                    {{ team_det.team_created_date }}
+                    </div>
+                <img src="{{ team_det.team_emblem.photo_image.url }}" alt="" class="img-responsive">
+                <p>{{ team_det.team_text }}</p>
+                <hr>
+            </div>
+        <div class="coach">
+            <h3>Тренер: {{ team_det.team_coach }}</h3>
+            <img src="{{ team_det.team_coach.coach_photo.photo_image.url }}" alt="" class="img-responsive">
+        </div>
+        </div>
+
+    {% endblock %}
