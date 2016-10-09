@@ -6,13 +6,13 @@ from team.models import Team
 
 
 class News(models.Model):
-    news_author = models.ForeignKey('auth.User')
-    news_title = models.CharField(max_length=80)
-    news_text = models.TextField()
-    news_image = models.ForeignKey('team.Photo', null=True, blank=True, on_delete=models.CASCADE)
-    news_created_date = models.DateTimeField(
+    author = models.ForeignKey('auth.User')
+    title = models.CharField(max_length=80)
+    text = models.TextField()
+    image = models.ImageField(null=False, blank=False, upload_to="images/", verbose_name='Изображение')
+    created_date = models.DateTimeField(
         default=timezone.now)
-    news_published_date = models.DateTimeField(
+    published_date = models.DateTimeField(
         blank=True, null=True)
 
     def publish(self):
@@ -20,4 +20,4 @@ class News(models.Model):
         self.save()
 
     def __str__(self):
-        return self.news_title
+        return self.title
