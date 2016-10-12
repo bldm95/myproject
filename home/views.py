@@ -18,5 +18,5 @@ def news_list(request):
 def news_detail(request, pk):
 
     news_det = get_object_or_404(News, pk=pk)
-    news_other = News.objects.exclude(pk__exact=pk)[:4]
+    news_other = News.objects.exclude(pk__exact=pk).order_by('?')[:4]
     return render(request, 'home/news_detail.html', {'news_det': news_det, 'news_other': news_other})

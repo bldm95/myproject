@@ -1,3 +1,10 @@
+@import url('/extra/media/images');
+
+body {
+    background: url(http://www.vestikavkaza.ru/upload/nvk/2015_Apr/Kubanskie-uchenye-razrabotayut-gazon-generiruyushchiy-energiyu.jpg);
+    background-size: cover;
+
+}
 
 @media screen and (max-width: 767px){
      .masonry[data-columns]::before{
