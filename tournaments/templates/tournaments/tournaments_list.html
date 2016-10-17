@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+
+    {% block content %}
+        {% for post_tournament in tournaments %}
+
+            <div class="item">
+                <div class="thumbnail">
+
+
+                    <div class="caption">
+                        <h3><a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk  %}">{{ post_tournament.name }}</a></h3>
+                        <a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk %}" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    {% endblock content %}
