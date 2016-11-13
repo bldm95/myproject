@@ -1,0 +1,45 @@
+{% extends 'home/base.html' %}
+
+{% block datail %}
+        <div class="container">
+            <div class="game">
+                <table class="table" border="3">
+                       <div class="heading">
+                    <h3>Турнир: {{ tournament_det.name }}</h3>
+                    <h3>Дата проведения игры: {{ game.date_time }}</h3>
+                    <h3>Место проведения игры: {{  game.place.name }}</h3>
+                        </div>
+                    <tr>
+                        <td>
+                            <h3>{{ participant_one.name }}</h3>
+                            <img src="{{ participant_one.emblem.image.url }}" height="600" width="540" alt="" class="img-responsive">
+                            <p>Голы:</p>
+                            {% for goal in goals %}
+                                {%  if goal.player.team.pk == participant_one.pk %}
+                                    <p>{{ goal.player.name }}</p>
+                                    <p>{{ goal.minute }}</p>
+                                {% endif %}
+                            {% endfor %}
+
+                        </td>
+
+                        <td>
+                            <h3>{{ participant_two.name }}</h3>
+                            <img src="{{ participant_two.emblem.image.url }}" height="600" width="540" alt="" class="img-responsive">
+                                <p>Голы:</p>
+                            {% for goal in goals %}
+                                {%  if goal.player.team.pk == participant_two.pk  %}
+                                    <p>{{ goal.player.name }}</p>
+                                    <p>{{ goal.minute }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+
+                        </td>
+                     </tr>
+                </table>
+            </div>
+        </div>
+
+
+    {% endblock %}
