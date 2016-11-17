@@ -1,4 +1,4 @@
-@import url('/extra/media/images');
+
 
 body {
     background: url(http://www.vestikavkaza.ru/upload/nvk/2015_Apr/Kubanskie-uchenye-razrabotayut-gazon-generiruyushchiy-energiyu.jpg);
@@ -28,4 +28,32 @@ body {
      .masonry[data-columns]::before{
          content: '4 .col-xs-3' ;
      }
+}
+
+.pagination li a {
+    color: #419641;
+}
+
+.footer li a {
+    color: #0f0f0f;
+ background: yellow;
+}
+
+
+.item_team .thumbnail {
+    background: #ffbb33;
+    border:0;
+    box-shadow:0 0 30px black;
+        }
+
+.item_news .thumbnail {
+    background: white;
+    border:0;
+    box-shadow:0 0 30px black;
+        }
+
+.item_tournaments .thumbnail{
+    background: #4285F4;
+    border:0;
+    box-shadow:0 0 30px black;
 }

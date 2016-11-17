@@ -39,6 +39,24 @@
   </head>
 
   <body>
+    <!-- Добавьте модальное окно после открывающего тега body-->
+    <div class="modal fade" id="image-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <div class="modal-title">Просмотр изображения</div>
+          </div>
+          <div class="modal-body">
+            <img class="img-responsive center-block" src="" alt="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -53,7 +71,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{%  url 'news_list' %}">Главная</a></li>
+            <li><a href="{%  url 'news_list' %}">Главная</a></li>
             <li><a href="{% url 'teams_list' %}">Команды</a></li>
             <li><a href="{% url 'tournaments_list' %}">Турниры</a></li>
           </ul>
@@ -63,6 +81,7 @@
     </nav>
 
 <br>
+
 
     {% block datail %}
     {% endblock %}
@@ -75,50 +94,54 @@
 
         </div>
     </div>
+{% include 'home/paginator.html' with page=news %}
+
 
 
             <!--footer-->
-        <div class="container text-center">
-    <hr />
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="#">About us</a></li>
-          <li><a href="#">Blog</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="#">Product for Mac</a></li>
-          <li><a href="#">Product for Windows</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="#">Web analytics</a></li>
-          <li><a href="#">Presentations</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a href="#">Product Help</a></li>
-          <li><a href="#">Developer API</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <hr>
-    <div class="row">
-        <div class="col-lg-12">
-            <ul class="nav nav-pills nav-justified">
-                <li><a href="/">© 2016 Company Name.</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Privacy</a></li>
-            </ul>
+    <div class="footer">
+                <div class="container text-center">
+            <hr />
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="col-md-3">
+                <ul class="nav nav-pills nav-stacked">
+                  <li><a href="#">About us</a></li>
+                  <li><a href="#">Blog</a></li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <ul class="nav nav-pills nav-stacked">
+                  <li><a href="#">Product for Mac</a></li>
+                  <li><a href="#">Product for Windows</a></li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <ul class="nav nav-pills nav-stacked">
+                  <li><a href="#">Web analytics</a></li>
+                  <li><a href="#">Presentations</a></li>
+                </ul>
+              </div>
+              <div class="col-md-3">
+                <ul class="nav nav-pills nav-stacked">
+                  <li><a href="#">Product Help</a></li>
+                  <li><a href="#">Developer API</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <hr>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="nav nav-pills nav-justified">
+                        <li><a href="/">© 2016 Company Name.</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -129,6 +152,29 @@
     <script src="{% static 'js/salvattore.min.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
-  
 
+<!-- Блок кода, содержащий галерею Thumbnails -->
+
+<!-- Добавьте следущий сценарий перед закрывающим тегом body -->
+<script>
+// После загрузки DOM-дерева (страницы)
+$(function() {
+  //при нажатии на ссылку, содержащую Thumbnail
+  $('a.thumbnail').click(function(e) {
+    //отменить стандартное действие браузера
+    e.preventDefault();
+    //присвоить атрибуту scr элемента img модального окна
+    //значение атрибута scr изображения, которое обёрнуто
+    //вокруг элемента a, на который нажал пользователь
+    $('#image-modal .modal-body img').attr('src', $(this).find('img').attr('src'));
+    //открыть модальное окно
+    $("#image-modal").modal('show');
+  });
+  //при нажатию на изображение внутри модального окна
+  //закрыть его (модальное окно)
+  $('#image-modal').find('.modal-body img').on('click', function() {
+    $("#image-modal").modal('hide')
+  });
+});
+</script>
 </body></html>

@@ -3,18 +3,32 @@
 
     {% block datail %}
         <div class="container">
-            <div class="team">
-                <h1><a href="#">{{ team_det.name }}</a></h1>
-                    <div class="date">
-                    Дата образования: {{ team_det.created_date }}
-                    </div>
-                <img src="{{ team_det.emblem.image.url }}" height="600" width="540" alt="" class="img-responsive">
-                <p>{{ team_det.text }}</p>
-                <hr>
+            <div class="row">
+                <div class="col-sm-8 col-md-8 col-xl-8">
+                    <h1><a href="#">{{ team_det.name }}</a></h1>
+                        <div class="date">
+                        Дата образования: {{ team_det.created_date }}
+                            <p>{{ team_det.text }}</p>
+                        </div>
+                </div>
+                    <div class="col-sm-4 col-md-4 col-xl-4"><img src="{{ team_det.emblem.image.url }}" height="500" width="500" alt="" class="img-responsive"></div>
+
+                    <hr>
+
             </div>
         <div class="coach">
-            <h3> Тренер: <a href="{% url 'coach' pk_coach=team_det.coach.pk %}"> {{ team_det.coach }} </a></h3>
-            <img src="{{ team_det.coach.photo.image.url }}" height="600" width="540" alt="" class="img-responsive">
+        <h3>Тренерский состав:</h3>
+            {% for coach in coachs %}
+                {% if coach.rank.name == 'Старший' %}
+                    <h4> Старший тренер: <a href="{% url 'coach_detail' pk_coach=team_det.pk %}"> {{ coach }} </a></h4>
+                    <img src="{{ coach.photo.image.url }}" height="600" width="540" alt="" class="img-responsive">
+                {% else %}
+                    <h4> Помошники тренера: <a href="{% url 'coach_detail' pk_coach=team_det.pk %}"> {{ coach }} </a></h4>
+                    <img src="{{ coach.photo.image.url }}" height="600" width="540" alt="" class="img-responsive">
+                {% endif %}
+            {% endfor %}
+            <h3> Тренер: <a href="{% url 'coach_detail' pk_coach=team_det.pk %}"> {{ coach }} </a></h3>
+
        <hr>
           </div>
         </div>

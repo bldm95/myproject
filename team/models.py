@@ -8,6 +8,7 @@ class Coach(models.Model):
     name = models.CharField(max_length=80)
     middle_name = models.CharField(max_length=80)
     year_birth = models.DateField(default=date.today)
+    team = models.ForeignKey('Team', null=True, blank=True, on_delete=models.SET_NULL)
     rank = models.ForeignKey('Rank', null=True, blank=True, on_delete=models.SET_NULL)
     photo = models.ForeignKey('Photo', null=True, blank=True, on_delete=models.SET_NULL)
 
@@ -19,7 +20,6 @@ class Team(models.Model):
     name = models.CharField(max_length=80)
     created_date = models.DateField(default=date.today)
     text = models.TextField()
-    coach = models.ForeignKey(Coach, null=True, blank=True, on_delete=models.SET_NULL)
     emblem = models.ForeignKey('Photo', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):

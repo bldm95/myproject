@@ -1,7 +1,9 @@
+from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
-from tournaments.models import Tournament
+from team.models import Team
+from tournaments.models import Tournament, Game, Goal
 
 
 def tournaments_list(request):
@@ -11,4 +13,21 @@ def tournaments_list(request):
 
 def tournament_detail(request, pk_tournament=1):
     tournament_det = get_object_or_404(Tournament, pk=pk_tournament)
-    return render(request, 'tournaments/tournament_detail.html', {'tournament_det': tournament_det})
+    games = tournament_det.game_set.all().order_by('-date_time')
+    goals = Goal.objects.filter(game__tournament=pk_tournament)
+    part_one = 0
+    return render(request, 'tournaments/tournament_detail.html',
+                  {'tournament_det': tournament_det, 'games': games, 'goals': goals, 'part_one': part_one})
+
+
+def game_detail(request, pk_tournament=1, pk_game=1):
+    game = get_object_or_404(Game, pk=pk_game)
+    tournament_det = game.tournament
+    participant_one = game.participant_one
+    participant_two = game.participant_two
+    goals = Goal.objects.filter(game=pk_game)
+    return render(request, 'tournaments/game_detail.html', {'game': game,
+                                                            'participant_one': participant_one,
+                                                            'participant_two': participant_two,
+                                                            'tournament_det': tournament_det,
+                                                            'goals': goals})
