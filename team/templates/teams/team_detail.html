@@ -5,14 +5,16 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-md-8 col-xl-8">
-                <h1><a href="#">{{ team_det.name }}</a></h1>
+                <h1>{{ team_det.name }}</h1>
                     <div class="date">
                     Дата образования: {{ team_det.created_date }}
                         <p>{{ team_det.text }}</p>
                     </div>
             </div>
                 <div class="col-sm-4 col-md-4 col-xl-4">
+                    <a href="#" class="thumbnail">
                     <img src="{{ team_det.emblem.image.url }}" height="500" width="500" alt="" class="img-responsive">
+                    </a>
                 </div>
         </div>
         <hr>
@@ -24,11 +26,14 @@
                     <div class="col-sm-3 col-md-3">
                         <div class="item_coach">
                             <div class="thumbnail">
+                                <a href="{% url 'coach_detail' pk_coach=coach.pk %}">
                                 <img src="{{ coach.photo.image.url }}" alt="" class="img-responsive">
+                                </a>
                                 <div class="caption">
-                                    <h4><a href="{% url 'coach_detail' pk_coach=team_det.pk %}"> {{ coach }} </a></h4>
+                                    <h4><a href="{% url 'coach_detail' pk_coach=coach.pk %}"> {{ coach }} </a></h4>
                                     <p>Должность: {{ coach.rank.name }}</p>
-                                    <a href="{%  url 'coach_detail' pk_coach=team_det.pk %}%}" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+                                    <a href="{%  url 'coach_detail' pk_coach=coach.pk %}" class="btn btn-success">
+                                        Подробнее <i class="fa fa-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -46,13 +51,16 @@
     {% for player in players %}
     <div class="item_player">
         <div class="thumbnail">
-
+            <a href="{%  url 'player_detail' pk_player=player.pk pk_team=team_det.pk%}">
             <img src="{{ player.photo.image.url }}" alt="" class="img-responsive">
+            </a>
             <div class="caption">
-                <h3><a href="{%  url 'player_detail' pk_player=player.pk pk_team=team_det.pk%}">{{ player.surname }} {{ player.name }}  {{ player.middle_name }}</a></h3>
+                <h3><a href="{%  url 'player_detail' pk_player=player.pk pk_team=team_det.pk%}">
+                    {{ player.surname }} {{ player.name }}  {{ player.middle_name }}</a></h3>
 
                 <p>{{ player.text |truncatechars:150}}</p>
-                <a href="{%  url 'player_detail' pk_player=player.pk pk_team=team_det.pk%}" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+                <a href="{%  url 'player_detail' pk_player=player.pk pk_team=team_det.pk%}" class="btn btn-success">
+                    Подробнее <i class="fa fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
