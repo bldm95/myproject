@@ -57,3 +57,21 @@ body {
     border:0;
     box-shadow:0 0 30px black;
 }
+
+.item_coach .thumbnail {
+    background: #ffff00;
+    border:0;
+    box-shadow:0 0 30px black;
+        }
+
+.item_player .thumbnail {
+    background: #4fc3f7;
+    border:0;
+    box-shadow:0 0 30px black;
+        }
+
+.item_news_text .thumbnail {
+    background: #71f77e;
+    border:0;
+    box-shadow:0 0 30px black;
+        }

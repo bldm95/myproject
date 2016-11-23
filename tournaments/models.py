@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import get_object_or_404
 from django.utils.datetime_safe import date
 
 from team.models import Team
@@ -11,6 +12,14 @@ class Tournament(models.Model):
     def __str__(self):
         return self.name + ' ' + str(self.year.strftime('%d-%m-%y'))
 
+    def get_game_photo(self):
+        # запрос путя картинки
+
+        game_one = GameImage.objects.filter(game__tournament=self.id)[:1]
+        for game in game_one:
+            return game.image.url
+            # Надо сделать по-другому!!!
+
 
 class Game(models.Model):
     tournament = models.ForeignKey('Tournament', null=True, blank=True, on_delete=models.SET_NULL)
@@ -22,7 +31,6 @@ class Game(models.Model):
     date_time = models.DateField(default=date.today)
     place = models.ForeignKey('Place', null=True, blank=True, on_delete=models.SET_NULL)
     referee = models.ForeignKey('Referee', null=True, blank=True, on_delete=models.SET_NULL)
-    photo = models.ForeignKey('team.Photo', null=True, blank=True, on_delete=models.SET_NULL)
 
     def get_goals(self):
         # запрос всех голов этой игры
@@ -43,7 +51,9 @@ class Game(models.Model):
     '''3 метода один общий и два конкретных'''
 
 
-
+class GameImage(models.Model):
+    game = models.ForeignKey(Game, related_name='images')
+    image = models.ImageField(upload_to="images/")
 
 
 class Referee(models.Model):
@@ -73,5 +83,3 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
-
-
