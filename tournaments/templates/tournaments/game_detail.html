@@ -41,5 +41,18 @@
             </div>
         </div>
 
-
     {% endblock %}
+
+{% block content %}
+
+    {% for game_image in game_images %}
+        <div class="item_game_image">
+            <div class="thumbnail">
+                <a href="#" class="thumbnail">
+                <img src="{{ game_image.image.url }}" alt="" class="img-responsive">
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
