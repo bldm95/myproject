@@ -27,8 +27,3 @@ def coach(request, pk_coach=1):
     coach_det = get_object_or_404(Coach, pk=pk_coach)
     coachs = Coach.objects.exclude(pk__exact=pk_coach).order_by('?')[:4]
     return render(request, 'teams/coach_detail.html', {'coach_det': coach_det, 'coachs': coachs})
-
-"""
-def players_list(request, pk):
-    players = Player.objects.filter(player_team__lte=)().order_by('player_created_date')  # '-' новые команды будут первыми
-    return render(request, 'teams/teams_list.html', {'teams': teams})"""

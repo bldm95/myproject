@@ -8,7 +8,7 @@
                     <a href="{%  url 'news_detail' pk=post_news.pk %}">
                         <img src="{{ post_news.image.url }}"  alt="" class="img-responsive" >
                     </a>
-                    Дата публикации: {{ post_news.published_date.date }}
+                    Дата публикации: {{ post_news.published_date }}
                     <div class="caption">
                         <h3><a href="{%  url 'news_detail' pk=post_news.pk %}">{{ post_news.title }}</a></h3>
                         <p>{{ post_news.text |truncatechars:150}}</p>

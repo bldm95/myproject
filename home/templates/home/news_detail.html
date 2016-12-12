@@ -20,8 +20,10 @@
             <div class="col-sm-12 col-md-12 col-xl-12">
                 <div class="item_news_text">
                     <div class="thumbnail">
-
                     <p>{{ news_det.text }}</p>
+                        {% if news_det.source != '' %}
+                         <h4> <a href="{{ news_det.source }}">Источник</a> </h4>
+                         {% endif %}
                     </div>
                 </div>
             </div>

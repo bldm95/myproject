@@ -10,14 +10,11 @@ def home_list(request):
     return render(request, 'home/base.html', {})
 
 
-
-
-
 def news_detail(request, pk):
-
     news_det = get_object_or_404(News, pk=pk)
     news_other = News.objects.exclude(pk__exact=pk).order_by('?')[:4]
     return render(request, 'home/news_detail.html', {'news_det': news_det, 'news_other': news_other})
+
 
 def news_list(request):
     news_list = News.objects.filter(published_date__lte=timezone.now()).order_by(

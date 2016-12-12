@@ -12,13 +12,10 @@ class Tournament(models.Model):
     def __str__(self):
         return self.name + ' ' + str(self.year.strftime('%d-%m-%y'))
 
+    # запрос путя картинки
     def get_game_photo(self):
-        # запрос путя картинки
-
         game_one = GameImage.objects.filter(game__tournament=self.id)[:1]
-        for game in game_one:
-            return game.image.url
-            # Надо сделать по-другому!!!
+        return game_one[0].image.url
 
 
 class Game(models.Model):

@@ -29,9 +29,6 @@ class Team(models.Model):
 class Photo(models.Model):
     image = models.ImageField(upload_to="images/", verbose_name='Изображение')
 
-    '''def __str__(self):
-        return self.image'''
-
 
 class Player(models.Model):
     surname = models.CharField(max_length=80)
