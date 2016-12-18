@@ -28,6 +28,7 @@ class Game(models.Model):
     date_time = models.DateField(default=date.today)
     place = models.ForeignKey('Place', null=True, blank=True, on_delete=models.SET_NULL)
     referee = models.ForeignKey('Referee', null=True, blank=True, on_delete=models.SET_NULL)
+    played = models.BooleanField(default=0)
 
     def get_goals(self):
         # запрос всех голов этой игры
@@ -35,10 +36,14 @@ class Game(models.Model):
         team_one_count = 0
         team_two_count = 0
         for goal in goals:
-            if goal.player.team.pk == self.participant_one.pk:
+            if goal.player.team.pk == self.participant_one.pk and goal.type != '1':
                 team_one_count += 1
-            if goal.player.team.pk == self.participant_two.pk:
+            elif goal.player.team.pk == self.participant_one.pk and goal.type == '1':
                 team_two_count += 1
+            if goal.player.team.pk == self.participant_two.pk and goal.type != '1':
+                team_two_count += 1
+            elif goal.player.team.pk == self.participant_two.pk and goal.type == '1':
+                team_one_count += 1
         return team_one_count, team_two_count
 
     def __str__(self):
@@ -65,13 +70,19 @@ class Referee(models.Model):
 
 
 class Goal(models.Model):
+    GOAL_TYPE_CHOICES = (
+        ('0', 'normal'),
+        ('1', 'own goal'),
+        ('2', 'penalty'),
+    )
     game = models.ForeignKey('Game', null=False, blank=False, on_delete=models.CASCADE)
-    minute = models.DateTimeField(auto_now=False, )
-    player = models.OneToOneField('team.Player', on_delete=models.CASCADE)
-    penalty = models.BooleanField()
+    minute = models.PositiveSmallIntegerField(null=False, blank=False, )
+    sec = models.PositiveSmallIntegerField(null=False, blank=False, )
+    player = models.OneToOneField('team.Player', null=True, blank=True, on_delete=models.SET_NULL)
+    type = models.CharField(max_length=1, choices=GOAL_TYPE_CHOICES, default=0)
 
     def __str__(self):
-        return self.game.tournament.name + ' ' + self.player.surname + ' ' + str(self.minute.strftime('%M:%S'))
+        return self.game.tournament.name + ' ' + self.player.surname + ' ' + str(self.minute) + ':' + str(self.sec)
 
 
 class Place(models.Model):

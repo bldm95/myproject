@@ -14,7 +14,8 @@ class News(models.Model):
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
-    source = models.CharField(max_length=300, null=False, blank=False, default='')
+    source = models.CharField(max_length=255, null=True, blank=True, default='')
+    name_source = models.CharField(max_length=30, null=True, blank=True)
 
     def publish(self):
         self.published_date = timezone.now()

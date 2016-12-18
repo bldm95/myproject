@@ -17,10 +17,19 @@
                             <div class="caption">
                                 <h3>Забитые голы:</h3>
                             {% for goal in goals %}
+                                <p>
                                 {%  if goal.player.team.pk == participant_one.pk %}
-                                    <p>{{ goal.player.name }}</p>
-                                    <p>{{ goal.minute }}</p>
-                                {% endif %}
+                                        {{ goal.player.surname }} {{ goal.player.name }}
+                                            {{ goal.player.middle_name }} | {{ goal.minute }}:{{ goal.sec }} |
+                                    {% if goal.type == '1' %}
+                                        автогол |
+                                    {% elif  goal.type == '2' %}
+                                        пенальти |
+                                    {% endif %}
+                                    {% endif %}
+
+                                </p>
+
                             {% endfor %}
                             </div>
                         </div>
@@ -35,10 +44,18 @@
                             <div class="caption">
                             <h3>Забитые голы:</h3>
                                 {% for goal in goals %}
+                                    <p>
                                     {%  if goal.player.team.pk == participant_two.pk %}
-                                        <p>{{ goal.player.surname }} {{ goal.player.name }}
-                                            {{ goal.player.middle_name }} {{ goal.minute.time }}</p>
+                                        {{ goal.player.surname }} {{ goal.player.name }}
+                                            {{ goal.player.middle_name }} | {{ goal.minute }}:{{ goal.sec }} |
+                                        {% if goal.type == '1' %}
+                                        автогол |
+                                    {% elif  goal.type == '2' %}
+                                        пенальти |
                                     {% endif %}
+                                    {% endif %}
+
+                                </p>
                                 {% endfor %}
                             </div>
                         </div>

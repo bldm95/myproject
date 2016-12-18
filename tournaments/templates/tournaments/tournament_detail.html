@@ -32,11 +32,11 @@
                         </div>
                         <p>Место: {{ game.place }}</p>
                         <p>Судья: {{ game.referee }}</p>
-
-
-
-                             <p>Гол {{ game.get_goals }}</p>
-
+                        {% if game.played %}
+                            <p>Гол {{ game.get_goals }}</p>
+                        {% else %}
+                            <h3>Еще не сыграна</h3>
+                        {% endif %}
 
                      {% for goal in goals %}
                                 {%  if goal.player.team.pk == participant_one.pk %}
