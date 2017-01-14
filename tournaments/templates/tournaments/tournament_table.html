@@ -1,0 +1,33 @@
+{% extends 'home/base.html' %}
+
+    {% block detail %}
+        <table class="table">
+    <thead>
+		<tr>
+			<th class="number">Место</th>
+			<th class="team">Клуб</th>
+			<th class="number">Матчи</th>
+			<th class="number">Победы</th>
+			<div class="hide_on_mobile"><th class="hide_on_mobile">Ничьи</th></div>
+			<th class="hide_on_mobile">Поражения</th>
+			<th class="hide_on_mobile hide_on_laptop">Забито</th>
+			<th class="hide_on_mobile hide_on_laptop">Пропущено</th>
+			<th class="hide_on_mobile">Разница</th>
+			<th class="number">Очки</th>
+		</tr>
+    </thead>
+        <tbody>
+        {% for team in teams %}
+            <tr>
+                <td>{{ team.name }}</td>
+            </tr>
+            {{ team.get_info }}
+            {% for game in games %}
+                {% if game%}
+{{  }}
+                {% endif %}
+                {% endfor %}
+        {% endfor %}
+        </tbody>
+      </table>
+    {% endblock detail %}

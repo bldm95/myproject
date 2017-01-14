@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.utils.datetime_safe import date
 
 
+
+
 class Coach(models.Model):
     surname = models.CharField(max_length=80)
     name = models.CharField(max_length=80)

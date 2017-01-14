@@ -91,3 +91,12 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
+
+
+def get_info(self):
+    # запрос всех голов этой игры
+    games = Game.objects.filter(participant_one=self.id)
+    team_one_count = 0
+    team_two_count = 0
+    for game in games:
+        return game.id

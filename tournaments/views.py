@@ -1,6 +1,6 @@
 from django.db.models import Sum
 from django.shortcuts import render, get_object_or_404
-from tournaments.models import Tournament, Game, Goal, GameImage
+from tournaments.models import Tournament, Game, Goal, GameImage, Team
 
 
 def tournaments_list(request):
@@ -29,3 +29,12 @@ def game_detail(request, pk_tournament=1, pk_game=1):
                                                             'tournament_det': tournament_det,
                                                             'goals': goals,
                                                             'game_images': game_images})
+
+
+def tournament_table(request):
+    tournaments = Tournament.objects.all().order_by('-year')  # '-' новые турниры будут первыми
+    games = Game.objects.all()
+    teams = Team.objects.all()
+    return render(request, 'tournaments/tournament_table.html', {'tournaments': tournaments,
+                                                                 'games': games,
+                                                                 'teams': teams,})
