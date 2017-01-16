@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 
-from team.models import Team
+#from team.models import Team
 
 
 class News(models.Model):

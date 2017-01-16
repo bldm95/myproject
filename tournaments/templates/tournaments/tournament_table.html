@@ -19,12 +19,17 @@
         <tbody>
         {% for team in teams %}
             <tr>
+                <td>Number</td>
                 <td>{{ team.name }}</td>
+                {% for team_info in team.get_info %}
+                    <td>{{ team_info }}</td>
+                    {% endfor %}
+
             </tr>
-            {{ team.get_info }}
+
             {% for game in games %}
                 {% if game%}
-{{  }}
+
                 {% endif %}
                 {% endfor %}
         {% endfor %}

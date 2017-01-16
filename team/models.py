@@ -1,8 +1,9 @@
 from django.db import models
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.datetime_safe import date
 
-
+from tournaments.models import Game
 
 
 class Coach(models.Model):
@@ -25,7 +26,46 @@ class Team(models.Model):
     emblem = models.ForeignKey('Photo', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
+        game = Game.objects.filter(game=self.id)
         return self.name
+
+    def get_info(self):
+        match = 0
+        defeat = 0
+        win = 0
+        win_goals = 0
+        defeat_goals = 0
+        draw = 0 # ничья
+        points = 0
+        team = self.id
+        games = Game.objects.filter(Q(participant_one=self.id) | Q(participant_two=self.id) & ~Q(played=0))  # ~ = NOT
+        for game in games:
+            match += 1
+            part_one_goals_count = game.get_goals()[0]
+            part_two_goals_count = game.get_goals()[1]
+            if game.participant_one.id == team:
+                if part_one_goals_count > part_two_goals_count:
+                    win += 1
+                    win_goals += part_one_goals_count
+                    points += 3
+                elif part_one_goals_count == part_two_goals_count:
+                    draw += 1
+                    points += 1
+                else:
+                    defeat += 1
+                    defeat_goals += 1
+            if game.participant_two.id == team:
+                if part_two_goals_count > part_one_goals_count:
+                    win += 1
+                    win_goals += part_two_goals_count
+                    points += 3
+                elif part_one_goals_count == part_two_goals_count:
+                    draw += 1
+                    points += 1
+                else:
+                    defeat += 1
+                    defeat_goals += 1
+        return match, win, draw, defeat, win_goals, defeat_goals, win_goals-defeat_goals,points # перебрать результат в цикле
 
 
 class Photo(models.Model):
@@ -49,8 +89,3 @@ class Rank(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
-
-

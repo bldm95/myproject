@@ -2,7 +2,7 @@ from django.db import models
 from django.shortcuts import get_object_or_404
 from django.utils.datetime_safe import date
 
-from team.models import Team
+#from team.models import Team
 
 
 class Tournament(models.Model):
@@ -53,6 +53,7 @@ class Game(models.Model):
     '''3 метода один общий и два конкретных'''
 
 
+
 class GameImage(models.Model):
     game = models.ForeignKey(Game, related_name='images')
     image = models.ImageField(upload_to="images/")
@@ -93,10 +94,3 @@ class Place(models.Model):
         return self.name
 
 
-def get_info(self):
-    # запрос всех голов этой игры
-    games = Game.objects.filter(participant_one=self.id)
-    team_one_count = 0
-    team_two_count = 0
-    for game in games:
-        return game.id
