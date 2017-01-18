@@ -21,17 +21,9 @@
             <tr>
                 <td>Number</td>
                 <td>{{ team.name }}</td>
-                {% for team_info in team.get_info %}
-                    <td>{{ team_info }}</td>
-                    {% endfor %}
-
+                <td>{{ team.match }}</td>
+                <td>{{ team.points }}</td>
             </tr>
-
-            {% for game in games %}
-                {% if game%}
-
-                {% endif %}
-                {% endfor %}
         {% endfor %}
         </tbody>
       </table>

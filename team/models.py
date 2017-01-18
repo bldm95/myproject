@@ -24,6 +24,14 @@ class Team(models.Model):
     created_date = models.DateField(default=date.today)
     text = models.TextField()
     emblem = models.ForeignKey('Photo', null=True, blank=True, on_delete=models.SET_NULL)
+    match = 0
+    defeat = 0
+    win = 0
+    win_goals = 0
+    defeat_goals = 0
+    draw = 0  # ничья
+    points = 0
+    win_g_defeat_g = 0 #разница между забитыми и пропущенными
 
     def __str__(self):
         game = Game.objects.filter(game=self.id)

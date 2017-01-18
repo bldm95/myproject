@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 
 from team.models import Team
 from tournaments.models import Tournament, Game, Goal, GameImage
-
+import operator
 
 def tournaments_list(request):
     tournaments = Tournament.objects.all().order_by('-year')  # '-' новые турниры будут первыми
@@ -37,6 +37,20 @@ def tournament_table(request):
     tournaments = Tournament.objects.all().order_by('-year')  # '-' новые турниры будут первыми
     games = Game.objects.all()
     teams = Team.objects.all()
+    for team in teams:
+        team.match = team.get_info()[0]
+        team.win = team.get_info()[1]
+        team.draw = team.get_info()[2]
+        team.defeat = team.get_info()[3]
+        team.win_goals = team.get_info()[4]
+        team.defeat_goals = team.get_info()[5]
+        team.win_g_defeat_g = team.get_info()[6]  # разница между забитыми и пропущенными
+        team.points = team.get_info()[7]
+
+    #Сортировка вставками
+        sorted(teams, key=operator.attrgetter('points'))
+
+
     return render(request, 'tournaments/tournament_table.html', {'tournaments': tournaments,
                                                                  'games': games,
                                                                  'teams': teams, })
