@@ -19,9 +19,15 @@
         <tbody>
         {% for team in teams %}
             <tr>
-                <td>Number</td>
+                <td>{{ forloop.counter }}</td>
                 <td>{{ team.name }}</td>
                 <td>{{ team.match }}</td>
+                <td>{{ team.win }}</td>
+                <td>{{ team.draw }}</td>
+                <td>{{ team.defeat }}</td>
+                <td>{{ team.win_goals }}</td>
+                <td>{{ team.defeat_goals }}</td>
+                <td>{{ team.win_g_defeat_g }}</td>
                 <td>{{ team.points }}</td>
             </tr>
         {% endfor %}

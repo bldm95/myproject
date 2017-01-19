@@ -34,7 +34,6 @@ class Team(models.Model):
     win_g_defeat_g = 0 #разница между забитыми и пропущенными
 
     def __str__(self):
-        game = Game.objects.filter(game=self.id)
         return self.name
 
     def get_info(self):

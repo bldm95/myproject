@@ -1,8 +1,10 @@
 from django.db import models
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.utils.datetime_safe import date
 
-#from team.models import Team
+# from team.models import Team
+
 
 
 class Tournament(models.Model):
@@ -53,7 +55,6 @@ class Game(models.Model):
     '''3 метода один общий и два конкретных'''
 
 
-
 class GameImage(models.Model):
     game = models.ForeignKey(Game, related_name='images')
     image = models.ImageField(upload_to="images/")
@@ -70,6 +71,10 @@ class Referee(models.Model):
         return self.surname + ' ' + self.name + ' ' + self.middle_name
 
 
+def limit_player_choices():
+    return Q(Game.participant_one.id == Player.team.pk)
+
+
 class Goal(models.Model):
     GOAL_TYPE_CHOICES = (
         ('0', 'normal'),
@@ -79,7 +84,8 @@ class Goal(models.Model):
     game = models.ForeignKey('Game', null=False, blank=False, on_delete=models.CASCADE)
     minute = models.PositiveSmallIntegerField(null=False, blank=False, )
     sec = models.PositiveSmallIntegerField(null=False, blank=False, )
-    player = models.OneToOneField('team.Player', null=True, blank=True, on_delete=models.SET_NULL)
+    player = models.ForeignKey('team.Player', null=True, blank=True, on_delete=models.SET_NULL,
+                               limit_choices_to={'team_id': 1}) #ошибка потому-что команда не выбрана
     type = models.CharField(max_length=1, choices=GOAL_TYPE_CHOICES, default=0)
 
     def __str__(self):
@@ -92,5 +98,3 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
-
-

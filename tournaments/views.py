@@ -46,11 +46,8 @@ def tournament_table(request):
         team.defeat_goals = team.get_info()[5]
         team.win_g_defeat_g = team.get_info()[6]  # разница между забитыми и пропущенными
         team.points = team.get_info()[7]
-
-    #Сортировка вставками
-        sorted(teams, key=operator.attrgetter('points'))
-
-
+    #сортировка
+    sort_team = sorted(teams, key=operator.attrgetter('points'), reverse=True)
     return render(request, 'tournaments/tournament_table.html', {'tournaments': tournaments,
                                                                  'games': games,
-                                                                 'teams': teams, })
+                                                                 'teams': sort_team, })
