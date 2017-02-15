@@ -1,7 +1,17 @@
 from django.contrib import admin
+from home.models import News
+
+from guardian.admin import GuardedModelAdmin
 
 
-from .models import News
+class NewsAdmin(GuardedModelAdmin):
+    list_display = ('title', 'user', 'created_date')
+    search_fields = ('title', 'text')
+    ordering = ('-created_date',)
 
-admin.site.register(News)
+    def view_news(self):
+        pass
+        return
 
+
+admin.site.register(News, NewsAdmin)

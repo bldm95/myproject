@@ -3,8 +3,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.utils.datetime_safe import date
 
-# from team.models import Team
-
+from team.models import Team, Player
 
 
 class Tournament(models.Model):
@@ -71,8 +70,9 @@ class Referee(models.Model):
         return self.surname + ' ' + self.name + ' ' + self.middle_name
 
 
-def limit_player_choices():
-    return Q(Game.participant_one.id == Player.team.pk)
+def limit_player_choices(game):
+    player = Player.objects.all()
+    return player
 
 
 class Goal(models.Model):
@@ -84,12 +84,16 @@ class Goal(models.Model):
     game = models.ForeignKey('Game', null=False, blank=False, on_delete=models.CASCADE)
     minute = models.PositiveSmallIntegerField(null=False, blank=False, )
     sec = models.PositiveSmallIntegerField(null=False, blank=False, )
-    player = models.ForeignKey('team.Player', null=True, blank=True, on_delete=models.SET_NULL,
-                               limit_choices_to={'team_id': 1}) #ошибка потому-что команда не выбрана
+    player = models.ForeignKey('team.Player', null=True, blank=True,
+                               on_delete=models.SET_NULL)  # ошибка потому-что команда не выбрана -
+    # чтобы вывести именно тех игроков которые участвовали в данной игре, необходимы выбрать команду,
+    # а после загрузить игроков,возможно,
+    # это можно будет сделать только с помощью Angular/ Пробовал сделать через метод  limit_choices_to={'team_id': 5}
     type = models.CharField(max_length=1, choices=GOAL_TYPE_CHOICES, default=0)
 
     def __str__(self):
-        return self.game.tournament.name + ' ' + self.player.surname + ' ' + str(self.minute) + ':' + str(self.sec)
+        return self.game.tournament.name + ' ' + str(self.game.date_time) + ' ' + self.player.surname + ' ' + str(
+            self.minute) + ':' + str(self.sec)
 
 
 class Place(models.Model):

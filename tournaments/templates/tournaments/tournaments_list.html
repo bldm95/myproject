@@ -1,19 +1,17 @@
 {% extends 'home/base.html' %}
 
-    {% block content %}
-        {% for post_tournament in tournaments %}
-
-            <div class="item_tournaments">
-                <div class="thumbnail">
-                    <a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk %}">
-                        <img src="{{ post_tournament.get_game_photo }}"  alt="" class="img-responsive" >
-                    </a>
-                    <div class="caption">
-                        <h3><a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk  %}">{{ post_tournament.name }}</a></h3>
-                        <a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk %}" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
-                    </div>
+{% block content %}
+    {% for post_tournament in tournaments %}
+        <div class="item_tournaments">
+            <div class="thumbnail">
+                <a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk %}">
+                    <img src="{{ post_tournament.get_game_photo }}"  alt="" class="img-responsive" >
+                </a>
+                <div class="caption">
+                    <h3><a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk  %}">{{ post_tournament.name }}</a></h3>
+                    <a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk %}" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
-        {% endfor %}
-
-    {% endblock content %}
+        </div>
+    {% endfor %}
+{% endblock content %}

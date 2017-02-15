@@ -1,52 +1,51 @@
 {% extends 'home/base.html' %}
 
-
-    {% block detail %}
+{% block detail %}
         <div class="container">
             <div class="tournament">
                 <h1>{{ tournament_det.name }}</h1>
                     <div class="date">
                     Дата : {{ tournament_det.year }}
                     </div>
-
                 <h2>Игры:</h2>
                 <hr>
             </div>
-
         </div>
 {% endblock %}
 
 {% block content %}
-            {% for game in games %}
-
-            <div class="item">
-                <div class="thumbnail">
-
-                    <a href="{%  url 'game_detail' pk_tournament=tournament_det.pk pk_game=game.pk %}">
-                        <img src="{{ game.photo.image.url }}" alt="" class="img-responsive">
-                    </a>
-                    <div class="caption">
-                        <h3><a href="#">{{ game.participant_one.name }} Против {{ game.participant_two.name }}</a></h3>
-                        <div class="date">
-                         Дата : {{ game.date_time }}
-                        </div>
-                        <p>Место: {{ game.place }}</p>
-                        <p>Судья: {{ game.referee }}</p>
-                        {% if game.played %}
-                            <p>Гол {{ game.get_goals }}</p>
-                        {% else %}
-                            <h3>Еще не сыграна</h3>
-                        {% endif %}
-
-                     {% for goal in goals %}
-                                {%  if goal.player.team.pk == participant_one.pk %}
-                                    <p>{{ goal.player.name }}</p>
-                                    <p>{{ goal.minute }}</p>
-                                {% endif %}
-                            {% endfor %}
-                        <a href="{%  url 'game_detail' pk_tournament=tournament_det.pk pk_game=game.pk %}" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+    {% for game in games %}
+        <div class="item">
+            <div class="thumbnail">
+                <a href="{%  url 'game_detail' pk_tournament=tournament_det.pk pk_game=game.pk %}">
+                    <img src="{{ game.photo.image.url }}" alt="" class="img-responsive">
+                </a>
+                <div class="caption">
+                    <h3>
+                        <a href="{%  url 'game_detail' pk_tournament=tournament_det.pk pk_game=game.pk %}">
+                            {{ game.participant_one.name }} Против {{ game.participant_two.name }}</a>
+                    </h3>
+                    <div class="date">
+                     Дата : {{ game.date_time }}
                     </div>
+                    <p>Место: {{ game.place }}</p>
+                    <p>Судья: {{ game.referee }}</p>
+                    {% if game.played %}
+                        <p>Гол {{ game.get_goals }}</p>
+                    {% else %}
+                        <h3>Еще не сыграна</h3>
+                    {% endif %}
+
+                 {% for goal in goals %}
+                            {%  if goal.player.team.pk == participant_one.pk %}
+                                <p>{{ goal.player.name }}</p>
+                                <p>{{ goal.minute }}</p>
+                            {% endif %}
+                 {% endfor %}
+                    <a href="{%  url 'game_detail' pk_tournament=tournament_det.pk pk_game=game.pk %}" class="btn btn-success">
+                        Подробнее <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
-            {% endfor %}
-        {% endblock %}
+        </div>
+    {% endfor %}
+{% endblock %}

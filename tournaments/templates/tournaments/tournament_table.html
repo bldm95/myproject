@@ -1,36 +1,38 @@
 {% extends 'home/base.html' %}
 
-    {% block detail %}
+{% block detail %}
+    <div class="container">
         <table class="table">
-    <thead>
-		<tr>
-			<th class="number">Место</th>
-			<th class="team">Клуб</th>
-			<th class="number">Матчи</th>
-			<th class="number">Победы</th>
-			<div class="hide_on_mobile"><th class="hide_on_mobile">Ничьи</th></div>
-			<th class="hide_on_mobile">Поражения</th>
-			<th class="hide_on_mobile hide_on_laptop">Забито</th>
-			<th class="hide_on_mobile hide_on_laptop">Пропущено</th>
-			<th class="hide_on_mobile">Разница</th>
-			<th class="number">Очки</th>
-		</tr>
-    </thead>
-        <tbody>
-        {% for team in teams %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ team.name }}</td>
-                <td>{{ team.match }}</td>
-                <td>{{ team.win }}</td>
-                <td>{{ team.draw }}</td>
-                <td>{{ team.defeat }}</td>
-                <td>{{ team.win_goals }}</td>
-                <td>{{ team.defeat_goals }}</td>
-                <td>{{ team.win_g_defeat_g }}</td>
-                <td>{{ team.points }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    {% endblock detail %}
+            <thead>
+                <tr>
+                    <th class="number">Место</th>
+                    <th class="team">Клуб</th>
+                    <th class="number">Матчи</th>
+                    <th class="number">Победы</th>
+                    <div class="hide_on_mobile"><th class="hide_on_mobile">Ничьи</th></div>
+                    <th class="hide_on_mobile">Поражения</th>
+                    <th class="hide_on_mobile hide_on_laptop">Забито</th>
+                    <th class="hide_on_mobile hide_on_laptop">Пропущено</th>
+                    <th class="hide_on_mobile">Разница</th>
+                    <th class="number">Очки</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for team in teams %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ team.name }}</td>
+                    <td>{{ team.match }}</td>
+                    <td>{{ team.win }}</td>
+                    <td>{{ team.draw }}</td>
+                    <td>{{ team.defeat }}</td>
+                    <td>{{ team.win_goals }}</td>
+                    <td>{{ team.defeat_goals }}</td>
+                    <td>{{ team.win_g_defeat_g }}</td>
+                    <td>{{ team.points }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock detail %}
