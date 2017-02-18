@@ -36,7 +36,7 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
-    def get_info_table(self,games):
+    def get_info_table(self, games):
         match = 0  # кол-во матчей
         defeat = 0  # поражения
         win = 0  # победы
@@ -54,8 +54,11 @@ class Team(models.Model):
                 if part_one_goals_count > part_two_goals_count:
                     win += 1
                     win_goals += part_one_goals_count
+                    defeat_goals += part_two_goals_count
                     points += 3
                 elif part_one_goals_count == part_two_goals_count:
+                    win_goals += part_one_goals_count
+                    defeat_goals += part_two_goals_count
                     draw += 1
                     points += 1
                 else:
@@ -65,14 +68,25 @@ class Team(models.Model):
                 if part_two_goals_count > part_one_goals_count:
                     win += 1
                     win_goals += part_two_goals_count
+                    defeat_goals += part_one_goals_count
                     points += 3
                 elif part_one_goals_count == part_two_goals_count:
                     draw += 1
                     points += 1
+                    win_goals += part_two_goals_count
+                    defeat_goals += part_one_goals_count
                 else:
                     defeat += 1
                     defeat_goals += part_one_goals_count
-        return match, win, draw, defeat, win_goals, defeat_goals, win_goals - defeat_goals, points  # перебрать результат в цикле
+        self.match = match
+        self.win = win
+        self.draw = draw
+        self.defeat = defeat
+        self.win_goals = win_goals
+        self.defeat_goals = defeat_goals
+        self.win_g_defeat_g = win_goals - defeat_goals
+        self.points = points
+        #return match, win, draw, defeat, win_goals, defeat_goals, win_goals - defeat_goals, points  # перебрать результат в цикле
 
 
 class Photo(models.Model):

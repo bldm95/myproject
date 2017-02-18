@@ -12,7 +12,7 @@ def tournaments_list(request):
     return render(request, 'tournaments/tournaments_list.html', {'tournaments': tournaments})
 
 
-def tournament_detail(request, pk_tournament=1):
+def tournament_detail(request, pk_tournament=1, year=0):
     tournament_det = get_object_or_404(Tournament, pk=pk_tournament)
     games = tournament_det.game_set.all().order_by('-date_time')
     goals = Goal.objects.filter(game__tournament=pk_tournament)
@@ -20,7 +20,7 @@ def tournament_detail(request, pk_tournament=1):
                   {'tournament_det': tournament_det, 'games': games, 'goals': goals, })
 
 
-def game_detail(request, pk_tournament=1, pk_game=1):
+def game_detail(request,pk_tournament=0, year=0, pk_game=1):
     game = get_object_or_404(Game, pk=pk_game)
     tournament_det = game.tournament
     participant_one = game.participant_one
@@ -35,11 +35,14 @@ def game_detail(request, pk_tournament=1, pk_game=1):
                                                             'game_images': game_images})
 
 
-def tournament_table(request, year_t=2013, pk_t=2):
-    tournaments = Tournament.objects.filter(pk=pk_t, year__year=year_t)
-    games = Game.objects.all()
-    teams = Team.objects.all()
+def tournament_table(request, pk_tournament=0, year=0):
+    tournaments = Tournament.objects.filter(pk=pk_tournament, year__year=year)
+    games = Game.objects.filter(Q(tournament_id=tournaments) & ~Q(played=0))
+    teams = Team.objects.all() # выбрать только те команды которые участвовали в играх, выбрать один раз
+    # games = 50 #Game.objects.filter(Q(participant_one=self.id) | Q(participant_two=self.id) & ~Q(played=0))  # ~ = NOT
     for team in teams:
+        team.get_info_table(games)
+        '''
         team.match = team.get_info_table(games)[0]
         team.win = team.get_info_table(games)[1]
         team.draw = team.get_info_table(games)[2]
@@ -48,6 +51,7 @@ def tournament_table(request, year_t=2013, pk_t=2):
         team.defeat_goals = team.get_info_table(games)[5]
         team.win_g_defeat_g = team.get_info_table(games)[6]  # разница между забитыми и пропущенными
         team.points = team.get_info_table(games)[7]
+        '''
     # сортировка
     sort_team = sorted(teams, key=operator.attrgetter('points'), reverse=True)
     return render(request, 'tournaments/tournament_table.html', {'tournaments': tournaments,

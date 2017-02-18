@@ -7,6 +7,8 @@
                     <div class="date">
                     Дата : {{ tournament_det.year }}
                     </div>
+                    <a href="{%  url 'tournament_table' pk_tournament=tournament_det.pk year=tournament_det.year.year %}" class="btn btn-info">
+                        Турнирная таблица <i class="fa fa-arrow-right"></i></a>
                 <h2>Игры:</h2>
                 <hr>
             </div>
@@ -17,12 +19,12 @@
     {% for game in games %}
         <div class="item">
             <div class="thumbnail">
-                <a href="{%  url 'game_detail' pk_tournament=tournament_det.pk pk_game=game.pk %}">
+                <a href="{%  url 'game_detail' pk_tournament=game.tournament.pk year=game.tournament.year.year pk_game=game.pk %}">
                     <img src="{{ game.photo.image.url }}" alt="" class="img-responsive">
                 </a>
                 <div class="caption">
                     <h3>
-                        <a href="{%  url 'game_detail' pk_tournament=tournament_det.pk pk_game=game.pk %}">
+                        <a href="{%  url 'game_detail' pk_tournament=game.tournament.pk year=game.tournament.year.year pk_game=game.pk %}">
                             {{ game.participant_one.name }} Против {{ game.participant_two.name }}</a>
                     </h3>
                     <div class="date">
@@ -42,7 +44,7 @@
                                 <p>{{ goal.minute }}</p>
                             {% endif %}
                  {% endfor %}
-                    <a href="{%  url 'game_detail' pk_tournament=tournament_det.pk pk_game=game.pk %}" class="btn btn-success">
+                    <a href="{%  url 'game_detail' pk_tournament=game.tournament.pk year=game.tournament.year.year pk_game=game.pk %}" class="btn btn-success">
                         Подробнее <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
