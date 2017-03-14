@@ -11,11 +11,15 @@
                         <p>{{ team_det.text }}</p>
                     </div>
             </div>
+
                 <div class="col-sm-4 col-md-4 col-xl-4">
-                    <a href="#" class="thumbnail">
-                    <img src="{{ team_det.emblem.image.url }}" height="500" width="500" alt="" class="img-responsive">
-                    </a>
+                    {% if team_det.emblem.image.url != "" %}
+                        <a href="#" class="thumbnail">
+                        <img src="{{ team_det.emblem.image.url }}" height="500" width="500" alt="" class="img-responsive">
+                        </a>
+                    {% endif %}
                 </div>
+
         </div>
         <hr>
 

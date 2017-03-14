@@ -11,23 +11,24 @@
                 Звание: {{ coach_det.rank.name }}
             </div>
                 <div class="col-sm-4 col-md-4 col-xl-4">
-                    {% if coach_det.photo.image.url == "" %} #  Если нет картинки ничего не выводить
-                    <a href="#" class="thumbnail">
-                    <img src="{{ coach_det.photo.image.url }}" height="500" width="500" alt="" class="img-responsive">
-                    </a>
+                    {% if coach_det.photo.pk != null %} <!--Если нет картинки ничего не выводить-->
+                        <a href="#" class="thumbnail">
+                        <img src="{{ coach_det.photo.image.url }}" height="500" width="500" alt="" class="img-responsive">
+                        </a>
                     {% endif %}
                 </div>
         </div>
+    {% if coach_det.team.pk != null %}
         <hr>
         <h3>Команда</h3>
         <div class="row">
             <div class="col-sm-3 col-md-3">
                 <div class="item_team">
-                    {% if coach_det.team.emblem.image.url == "" %} #  Если нет картинки ничего не выводит
-                    <div class="thumbnail">
-                        <a href="{%  url 'team_detail' pk_team=coach_det.team.pk  %}">
-                        <img src="{{ coach_det.team.emblem.image.url }}" alt="" class="img-responsive">
-                        </a>
+                    {% if coach_det.team.emblem.image.url != "" %} <!--Если нет картинки ничего не выводит-->
+                        <div class="thumbnail">
+                            <a href="{%  url 'team_detail' pk_team=coach_det.team.pk  %}">
+                            <img src="{{ coach_det.team.emblem.image.url }}" alt="" class="img-responsive">
+                            </a>
                     {% endif %}
                         <div class="caption">
                             <h4>
@@ -43,6 +44,7 @@
                 </div>
             </div>
         </div>
+    {% endif %}
         <hr>
     <h3>Другие тренера</h3>
     </div>

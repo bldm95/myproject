@@ -38,7 +38,7 @@ def game_detail(request,pk_tournament=0, year=0, pk_game=1):
 def tournament_table(request, pk_tournament=0, year=0):
     tournaments = Tournament.objects.filter(pk=pk_tournament, year__year=year)
     games = Game.objects.filter(Q(tournament_id=tournaments) & ~Q(played=0))
-    teams = Team.objects.all() # выбрать только те команды которые участвовали в играх, выбрать один раз
+    teams = Team.objects.all()  # выбрать только те команды которые участвовали в играх, выбрать один
     # games = 50 #Game.objects.filter(Q(participant_one=self.id) | Q(participant_two=self.id) & ~Q(played=0))  # ~ = NOT
     for team in teams:
         team.get_info_table(games)
