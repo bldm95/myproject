@@ -76,6 +76,25 @@ body {
     box-shadow:0 0 30px black;
         }
 
+.carousel .item{
+	background: #333;
+  text-align: center;
+  height: 300px !important;
+}
+.carousel h2{
+	color: #fff;
+	margin: 0;
+  padding-top: 50px;
+  font-size: 48px;
+}
+.carousel p{
+	color: #666;
+	font-weight: bold;
+	font-size: 16px;
+	margin-top: 30px;
+	margin-bottom: 40px;
+}
+
 .hide_on_mobile .th { display: inline; }
 /* Smartphone Portrait and Landscape */
 @media only screen

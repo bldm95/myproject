@@ -8,7 +8,7 @@ import operator
 
 
 def tournaments_list(request):
-    tournaments = Tournament.objects.all().order_by('-year')  # '-' новые турниры будут первыми
+    tournaments = Tournament.objects.all().order_by('-start_date')  # '-' новые турниры будут первыми
     return render(request, 'tournaments/tournaments_list.html', {'tournaments': tournaments})
 
 

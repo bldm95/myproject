@@ -4,12 +4,13 @@
     {% for post_tournament in tournaments %}
         <div class="item_tournaments">
             <div class="thumbnail">
-                <a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk year=post_tournament.year.year %}">
+                <a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk year=post_tournament.start_date.year %}">
                     <img src="{{ post_tournament.get_game_photo }}"  alt="" class="img-responsive" >
                 </a>
                 <div class="caption">
-                    <h3><a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk year=post_tournament.year.year %}">{{ post_tournament.name }}</a></h3>
-                    <a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk year=post_tournament.year.year %}" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
+                    <h4>C {{ post_tournament.start_date }}<br> по {{ post_tournament.end_date }}</h4>
+                    <h3><a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk year=post_tournament.start_date.year %}">{{ post_tournament.name }}</a></h3>
+                    <a href="{%  url 'tournament_detail' pk_tournament=post_tournament.pk year=post_tournament.start_date.year %}" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>

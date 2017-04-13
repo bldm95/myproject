@@ -1,17 +1,20 @@
 from django.db import models
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from django.utils.datetime_safe import date
 
 from team.models import Team, Player
 
 
 class Tournament(models.Model):
-    name = models.CharField(max_length=80, unique=True)
-    year = models.DateField(default=date.today, unique=True)
+    name = models.CharField(max_length=80, null=False, blank=False)
+    start_date = models.DateField(default=date.today, null=False, blank=False)
+    end_date = models.DateField(default=date.today, null=False, blank=False)
 
     def __str__(self):
-        return self.name + ' ' + str(self.year.strftime('%d-%m-%y'))
+        return self.name + ' ' + '  С ' + str(self.start_date.strftime('%d-%m-%y')) + ' по ' + str(
+            self.end_date.strftime('%d-%m-%y'))
 
     # запрос путя картинки
     def get_game_photo(self):
@@ -26,7 +29,7 @@ class Game(models.Model):
                                         unique=False)
     participant_two = models.ForeignKey('team.Team', null=True, blank=True, on_delete=models.SET_NULL,
                                         related_name='participant_two', unique=False)
-    date_time = models.DateField(default=date.today)
+    date_time = models.DateTimeField(blank=True, null=True)
     place = models.ForeignKey('Place', null=True, blank=True, on_delete=models.SET_NULL)
     referee = models.ForeignKey('Referee', null=True, blank=True, on_delete=models.SET_NULL)
     played = models.BooleanField(default=0)
@@ -49,7 +52,7 @@ class Game(models.Model):
 
     def __str__(self):
         return self.tournament.name + ' ' + self.participant_one.name + ' ' + self.participant_two.name + ' ' + str(
-            self.date_time)
+            self.date_time.strftime('%d-%m-%y-%H:%M'))
 
     '''3 метода один общий и два конкретных'''
 
