@@ -25,7 +25,7 @@ class NewsTest(TestCase):
 
     def test_news_list_view(self):
         n = self.create_news()
-        url = reverse('news', {})
+        url = reverse('/news/pk/', {"pk": n.id})
         resp = self.client.get(url)
         self.assertEqual(resp.status_code, 200)
         self.assertIn(n.title, resp.content)
