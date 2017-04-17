@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 class News(models.Model):
+
     user = models.ForeignKey(User, verbose_name="пользователь", blank=True, null=True)
     title = models.CharField(verbose_name="заголовок", max_length=80)
     text = models.TextField()

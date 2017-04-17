@@ -1,3 +1,4 @@
+from django.template import response
 from django.test import TestCase, Client
 from home.models import News
 import factory
@@ -6,7 +7,6 @@ from django.test import TestCase
 from home.models import News
 from django.utils import timezone
 from django.core.urlresolvers import reverse
-
 
 # models test
 class NewsTest(TestCase):
@@ -25,14 +25,15 @@ class NewsTest(TestCase):
 
     def test_news_list_view(self):
         n = self.create_news()
-        url = reverse('/news/pk/', {"pk": n.id})
+        url = reverse('news_detail', args=[n.id])
         resp = self.client.get(url)
+        #self.assertTemplateUsed(response, "home/news_detail.html")
         self.assertEqual(resp.status_code, 200)
-        self.assertIn(n.title, resp.content)
-'''
+        self.assertIn(n.title, resp.content.decode('UTF-8'))
+
 #
 
-
+'''
 
 class NewsTestCase(TestCase):
     def setUp(self):
