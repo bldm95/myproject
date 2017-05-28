@@ -23,7 +23,8 @@ class News(models.Model):
         permissions = (
             ('view_news', 'Can view news'),
         )
-
+'''
     @models.permalink
     def get_absolute_url(self):
         return {'news_title': self.title}
+'''
