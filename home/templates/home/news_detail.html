@@ -7,8 +7,8 @@
         <div class="row">
           <div class="col-sm-6 col-md-6 col-xl-6">
             {% if news_det.published_date %}
-                <h1>{{ news_det.title }}</h1>
-                <div class="date">
+                <h1 style="color: white;">{{ news_det.title }}</h1>
+                <div class="date" style="color: white; margin-bottom: 20px;">
                 Дата публикации: {{ news_det.published_date }}
                 </div>
                 <a href="#" class="thumbnail">
@@ -20,7 +20,7 @@
             <div class="col-sm-12 col-md-12 col-xl-12">
                 <div class="item_news_text">
                     <div class="thumbnail">
-                    <p>{{ news_det.text }}</p>
+                    <p style="font-size: 16px;">{{ news_det.text }}</p>
                         {% if news_det.source != '' and news_det.name_source != '' %}
                          <h4>Источник: <a href="{{ news_det.source }}">{{ news_det.name_source }}</a> </h4>
                          {% endif %}

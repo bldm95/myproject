@@ -18,7 +18,7 @@ def news_detail(request, pk):
 def news_list(request):
     news_list = News.objects.filter(published_date__lte=timezone.now()).order_by(
         '-published_date')
-    paginator = Paginator(news_list, 4)
+    paginator = Paginator(news_list, 8)
     page = request.GET.get('page')
     try:
         news = paginator.page(page)

@@ -40,14 +40,14 @@
 
         {% for post_news in news %}
             <div class="item_news">
-                <div class="thumbnail">
+                <div class="thumbnail" style="padding: 0;">
 
                     <a href="{%  url 'news_detail' pk=post_news.pk %}">
                         <img src="{{ post_news.image.url }}"  alt="" class="img-responsive" >
                     </a>
-                    Дата публикации: {{ post_news.published_date }}
+                    <p style="margin: 10px 0 0 16px;">Дата публикации: <br>{{ post_news.published_date }}</p>
                     <div class="caption">
-                        <h3><a href="{%  url 'news_detail' pk=post_news.pk %}">{{ post_news.title }}</a></h3>
+                        <h3 style="font-size: 15px;"><a href="{%  url 'news_detail' pk=post_news.pk %}">{{ post_news.title }}</a></h3>
                         <p>{{ post_news.text |truncatechars:150}}</p>
                         <a href="{%  url 'news_detail' pk=post_news.pk %}" class="btn btn-success">Подробнее <i class="fa fa-arrow-right"></i></a>
                     </div>
